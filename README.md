@@ -4,11 +4,11 @@ This demonstrates a simple method for determining the fully qualified public URL
 
 ## Building the application
 
-This sample application relies on [Cloud Run deploy from source](https://cloud.google.com/run/docs/deploying-source-code).  Which will use the LTS .NET 3.1 cloud native build pack.
+This sample application relies on [Cloud Run deploy from source](https://cloud.google.com/run/docs/deploying-source-code).  It will use the LTS .NET 3.1 cloud native build pack.
 
-In this repository you will find a `cloudbuild.yaml` file which defines a Cloud Build which automates the deployment to Cloud Run.
+In this repository you will find a `cloudbuild.yaml` file which defines how Cloud Build can automate the deployment to Cloud Run.
 
-Make sure to include the environment variable `ASPNETCORE_URLS=http://0.0.0.0:8080` in your Cloud Run definition as this is tells ASP.NET to listen on port 8080 which is the default port for Cloud Run.
+Make sure to include the environment variable `ASPNETCORE_URLS=http://0.0.0.0:8080` in your Cloud Run definition to configure ASP.NET to listen on port 8080, the default port for Cloud Run.
 
 ```yaml
   - '--update-env-vars'
@@ -22,4 +22,4 @@ If you see an error like this:
 ERROR: (gcloud.run.deploy) PERMISSION_DENIED: Permission 'artifactregistry.repositories.create' denied on resource ...
 ```
 
-You _may_ need to manually run the `gcloud run deploy [your-service-name] --source .` command once in your project prior to automating this with Cloud Build.  The reason is that Cloud Run uses an Artifact Repository named `cloud-run-source-deploy`.  Cloud Build by default has permissions to read/write to this repository, but not necessarily to create the repository.
+You _may_ need to manually run the `gcloud run deploy [your-service-name] --source .` command once in your project prior to automating this with Cloud Build.  The reason is that Cloud Run uses an Artifact Repository named `cloud-run-source-deploy` to deploy the docker image.  The Cloud Build service account by default has permissions to read/write to this repository, but not necessarily to create the repository.
