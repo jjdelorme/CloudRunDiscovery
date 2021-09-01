@@ -33,28 +33,22 @@ namespace Sample
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    string url = GetMyServiceUrl(env, context);
+                    string service = "myservice";
+                    string url = "";
+                    if (!env.IsDevelopment())
+                        url = GetMyServiceUrl(context, service);
+                    else
+                        url = service;
+                        
                     await context.Response.WriteAsync($"<html>Hello, the url is {url}</html>");
                 });
             });
         }
 
-        private string GetMyServiceUrl(IWebHostEnvironment env, HttpContext context)
+        private string GetMyServiceUrl(HttpContext context, string service)
         {
             var discovery = context.RequestServices.GetRequiredService<IDiscovery>();
-            string service = "myservice";
-            string url = "";
-
-            if (env.IsDevelopment())
-            {
-                url = service;
-            }
-            else 
-            {
-                url = discovery.GetServiceUrl(context, service);
-            }      
-
-            return url;      
+            return discovery.GetServiceUrl(context, service);
         }
     }
 }
