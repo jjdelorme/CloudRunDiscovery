@@ -1,0 +1,17 @@
+steps:
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: 
+  - 'run'
+  - 'deploy'
+  - 'cloudrundiscovery'
+  - '--source'
+  - '.'
+  - '--region'
+  - 'us-central1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+  - '--update-env-vars'
+  - 'ASPNETCORE_URLS=http://0.0.0.0:8080'
