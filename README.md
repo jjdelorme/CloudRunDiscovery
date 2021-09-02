@@ -11,9 +11,13 @@ dotnet run --urls http://localhost:8080
 ## Deploying to Cloud Run from source
 
 ```
-gcloud run deploy mvc --update-env-vars ASPNETCORE_URLS=http://0.0.0.0:8080 --allow-unauthenticated --source ./MvcWeb/
+gcloud run deploy mvc \
+  --update-env-vars ASPNETCORE_URLS=http://0.0.0.0:8080 \
+  --allow-unauthenticated --source ./MvcWeb/
 
-gcloud run deploy weatherapi --update-env-vars ASPNETCORE_URLS=http://0.0.0.0:8080 --allow-unauthenticated --source ./WeatherApi/
+gcloud run deploy weatherapi \
+  --update-env-vars ASPNETCORE_URLS=http://0.0.0.0:8080 \
+  --allow-unauthenticated --source ./WeatherApi/
 ```
 
 ## Building the application
