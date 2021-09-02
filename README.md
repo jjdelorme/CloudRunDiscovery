@@ -2,6 +2,20 @@
 
 This demonstrates a simple method for determining the fully qualified public URL of a peer Cloud Run service that is deployed in the same project & region.
 
+## Run locally
+
+```bash
+dotnet run --urls http://localhost:8080
+```
+
+## Deploying to Cloud Run from source
+
+```
+gcloud run deploy mvc --update-env-vars ASPNETCORE_URLS=http://0.0.0.0:8080 --allow-unauthenticated --source ./MvcWeb/
+
+gcloud run deploy weatherapi --update-env-vars ASPNETCORE_URLS=http://0.0.0.0:8080 --allow-unauthenticated --source ./WeatherApi/
+```
+
 ## Building the application
 
 This sample application relies on [Cloud Run deploy from source](https://cloud.google.com/run/docs/deploying-source-code).  It will use the LTS .NET 3.1 cloud native build pack.
@@ -14,7 +28,6 @@ Make sure to include the environment variable `ASPNETCORE_URLS=http://0.0.0.0:80
   - '--update-env-vars'
   - 'ASPNETCORE_URLS=http://0.0.0.0:8080'
 ```
-
 ## Known Issues
 
 If you see an error like this:
